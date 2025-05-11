@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cipoak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    h1 {
+      position: absolute;
+      z-index: 1;
+      font-size: 4em;
+      color: #cc3366;
+      text-shadow: 2px 2px 5px white;
+      top: 20px;
+    }
+
+    .flower {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #startBtn {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #cc3366;
+      color: white;
+      cursor: pointer;
+      z-index: 2;
+      transition: background-color 0.3s ease;
+    }
+
+    #startBtn:hover {
+      background-color: #a42c55;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cipoak</h1>
+  <button id="startBtn">Mulai</button>
+  <h1>Cipoak</h1>
+
+  <marquee behavior="scroll" direction="left" scrollamount="5"
+  style="position:absolute; top:50%; transform: translateY(-50%); width:100%; color:#cc3366; font-size: 1.5em;">
+🌸 Selamat datang di website Cipoak 🌸 Semoga harimu menyenangkan! 🌸
+</marquee>
+
+
+  <!-- Musik latar -->
+  <audio id="bgMusic" src="musik.mp3" loop></audio>
+
+  <script>
+    const btn = document.getElementById('startBtn');
+    const music = document.getElementById('bgMusic');
+
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.innerHTML = '🌸'; // Ganti ke <img src="bunga.png"> jika pakai gambar
+
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (5 + Math.random() * 5) + 's';
+      flower.style.fontSize = (20 + Math.random() * 30) + 'px';
+      flower.style.opacity = Math.random();
+
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 10000);
+    }
+
+    let flowerInterval = null;
+
+    btn.addEventListener('click', () => {
+      btn.style.display = 'none'; // Sembunyikan tombol
+      music.play();               // Mainkan musik
+      flowerInterval = setInterval(createFlower, 300); // Mulai efek bunga
+    });
+  </script>
+</body>
+</html>
